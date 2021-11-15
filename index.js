@@ -30,13 +30,13 @@ const instructions = {
     "<": (state) => state.direction = Direction.LEFT,
     ">": (state) => state.direction = Direction.RIGHT,
     "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
-    "$": (state) => state.stack.pop(),
-    "!": (state) => state.stack.push(state.stack.pop() === 0 ? 1 : 0),
-    ":": (state) => state.stack.push(state.stack.peek()),
-    "\\": (state) => {
-        const last = state.stack.pop(), penultimate = state.stack.pop();
-        state.stack.push(last);
-        state.stack.push(penultimate);
+    "$": ({ stack }) => stack.pop(),
+    "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
+    ":": ({ stack }) => stack.push(stack.peek()),
+    "\\": ({ stack }) => {
+        const last = stack.pop(), penultimate = stack.pop();
+        stack.push(last);
+        stack.push(penultimate);
     },
     "0": pushInt(0),
     "1": pushInt(1),
