@@ -18,7 +18,7 @@ describe("Befunge", () => {
             expect(interpreter("@..")).to.equal("");
         });
 
-        it.skip("pushes digits to the stack", () => {
+        it("pushes digits to the stack", () => {
             expect(interpreter("1234567890..........@")).to.equal("0987654321");
         });
 
