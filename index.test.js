@@ -12,7 +12,7 @@ describe("Befunge", () => {
             expect(interpreter("   @")).to.equal("");
         });
 
-        it.skip("pops 0 from an empty stack", () => {
+        it("pops 0 from an empty stack", () => {
             expect(interpreter(".@")).to.equal("0");
             expect(interpreter(" . . @")).to.equal("00");
             expect(interpreter("@..")).to.equal("");
