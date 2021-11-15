@@ -59,15 +59,20 @@ class Stack {
         this._stack = [];
     }
 
+    get empty() {
+        return this.length === 0;
+    }
+
+    get length() {
+        return this._stack.length;
+    }
+
     peek() {
-        return this._stack[this._stack.length - 1] || 0;
+        return this.empty ? 0 : this._stack[this.length - 1];
     }
 
     pop() {
-        if (this._stack.length === 0) {
-            return 0;
-        }
-        return this._stack.pop();
+        return this.empty ? 0 : this._stack.pop();
     }
 
     push(value) {
