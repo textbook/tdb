@@ -40,11 +40,11 @@ const instructions = {
     },
     "+": ({ stack }) => {
         const last = stack.pop(), penultimate = stack.pop();
-        stack.push(last + penultimate);
+        stack.push(penultimate + last);
     },
     "*": ({ stack }) => {
         const last = stack.pop(), penultimate = stack.pop();
-        stack.push(last * penultimate);
+        stack.push(penultimate * last);
     },
     "-": ({ stack }) => {
         const last = stack.pop(), penultimate = stack.pop();
