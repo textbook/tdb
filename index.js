@@ -1,9 +1,10 @@
 function interpreter(code) {
     let output = "";
-    for (let character of code) {
-        if (character === "@") {
+
+    for (let instruction of code) {
+        if (instruction === "@") {
             break;
-        } else if (character === ".") {
+        } else if (instruction === ".") {
             output += "0";
         }
     }
