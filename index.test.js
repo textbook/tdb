@@ -66,7 +66,7 @@ describe("Befunge", () => {
             expect(interpreter("42+.@")).to.equal("6");
         });
 
-        it.skip("can perform multiplication", () => {
+        it("can perform multiplication", () => {
             expect(interpreter("42*.@")).to.equal("8")
         });
 
