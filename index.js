@@ -13,8 +13,6 @@ function interpreter(code) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
-        } else if ("0123456789".indexOf(instruction) >= 0) {
-            state.stack.push(parseInt(instruction, 10));
         }
         state.position += state.direction;
         if (state.position < 0) {
@@ -33,7 +31,21 @@ const instructions = {
     ">": (state) => state.direction = Direction.RIGHT,
     "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
     "$": (state) => state.stack.pop(),
+    "0": pushInt(0),
+    "1": pushInt(1),
+    "2": pushInt(2),
+    "3": pushInt(3),
+    "4": pushInt(4),
+    "5": pushInt(5),
+    "6": pushInt(6),
+    "7": pushInt(7),
+    "8": pushInt(8),
+    "9": pushInt(9),
 };
+
+function pushInt(value) {
+    return (state) => state.stack.push(value);
+}
 
 const Direction = {
     LEFT: -1,
