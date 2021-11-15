@@ -62,7 +62,7 @@ describe("Befunge", () => {
     });
 
     describe("Level 3 - arithmetic", () => {
-        it.skip("can perform addition", () => {
+        it("can perform addition", () => {
             expect(interpreter("42+.@")).to.equal("6");
         });
 
