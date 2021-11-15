@@ -22,7 +22,7 @@ describe("Befunge", () => {
             expect(interpreter("1234567890..........@")).to.equal("0987654321");
         });
 
-        it.skip("can skip a cell", () => {
+        it("can skip a cell", () => {
             expect(interpreter("123..#.@")).to.equal("32");
         });
 
