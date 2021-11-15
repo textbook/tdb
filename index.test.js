@@ -85,7 +85,7 @@ describe("Befunge", () => {
             expect(interpreter("52%.@")).to.equal("1");
         });
 
-        it.skip("can perform comparison", () => {
+        it("can perform comparison", () => {
             expect(interpreter("83`.@")).to.equal("1");
             expect(interpreter("38`.@")).to.equal("0");
             expect(interpreter("33`.@")).to.equal("0");
