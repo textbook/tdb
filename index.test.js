@@ -5,15 +5,13 @@ const { interpreter } = require(".");
 describe("Befunge", () => {
     describe("Level 1 - horizontal movement", () => {
         it("ends an empty program", () => {
-            expect(interpreter("@")).to.equal("");
-        });
-
-        it.skip("ignores spaces", () => {
             expect(interpreter("   @")).to.equal("");
         });
 
         it.skip("pops 0 from an empty stack", () => {
             expect(interpreter(".@")).to.equal("0");
+            expect(interpreter(" . . @")).to.equal("00");
+            expect(interpreter("@..")).to.equal("");
         });
 
         it.skip("pushes digits to the stack", () => {
@@ -29,6 +27,7 @@ describe("Befunge", () => {
         });
 
         it.skip("can conditionally change direction", () => {
+            expect(interpreter("1#@_")).to.equal("");
             expect(interpreter("#@_.1<")).to.equal("01");
         });
 
@@ -72,7 +71,7 @@ describe("Befunge", () => {
         });
 
         it.skip("can perform subtraction", () => {
-            expect(interpreter("42-.@")).to.equal("2");
+            expect(interpreter("52-.@")).to.equal("3");
         });
 
         it.skip("can perform division (integer, rounded towards 0)", () => {
