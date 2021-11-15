@@ -38,18 +38,9 @@ const instructions = {
         stack.push(last);
         stack.push(penultimate);
     },
-    "+": ({ stack }) => {
-        const last = stack.pop(), penultimate = stack.pop();
-        stack.push(penultimate + last);
-    },
-    "*": ({ stack }) => {
-        const last = stack.pop(), penultimate = stack.pop();
-        stack.push(penultimate * last);
-    },
-    "-": ({ stack }) => {
-        const last = stack.pop(), penultimate = stack.pop();
-        stack.push(penultimate - last);
-    },
+    "+": binaryOp((last, penultimate) => penultimate + last),
+    "*": binaryOp((last, penultimate) => penultimate * last),
+    "-": binaryOp((last, penultimate) => penultimate - last),
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),
@@ -64,6 +55,10 @@ const instructions = {
 
 function pushInt(value) {
     return (state) => state.stack.push(value);
+}
+
+function binaryOp(func) {
+    return ({ stack }) => stack.push(func(stack.pop(), stack.pop()));
 }
 
 const Direction = {
