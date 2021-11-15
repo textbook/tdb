@@ -51,7 +51,7 @@ describe("Befunge", () => {
             expect(interpreter("!.@")).to.equal("1");
         });
 
-        it.skip("can duplicate the value at the top of the stack", () => {
+        it("can duplicate the value at the top of the stack", () => {
             expect(interpreter("1:..@")).to.equal("11");
             expect(interpreter(":..@")).to.equal("00");
         });

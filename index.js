@@ -32,6 +32,7 @@ const instructions = {
     "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
     "$": (state) => state.stack.pop(),
     "!": (state) => state.stack.push(state.stack.pop() === 0 ? 1 : 0),
+    ":": (state) => state.stack.push(state.stack.peek()),
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),
@@ -56,6 +57,10 @@ const Direction = {
 class Stack {
     constructor() {
         this._stack = [];
+    }
+
+    peek() {
+        return this._stack[this._stack.length - 1] || 0;
     }
 
     pop() {
