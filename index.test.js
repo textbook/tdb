@@ -70,7 +70,7 @@ describe("Befunge", () => {
             expect(interpreter("42*.@")).to.equal("8")
         });
 
-        it.skip("can perform subtraction", () => {
+        it("can perform subtraction", () => {
             expect(interpreter("52-.@")).to.equal("3");
         });
 

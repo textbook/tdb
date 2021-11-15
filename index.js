@@ -46,6 +46,10 @@ const instructions = {
         const last = stack.pop(), penultimate = stack.pop();
         stack.push(last * penultimate);
     },
+    "-": ({ stack }) => {
+        const last = stack.pop(), penultimate = stack.pop();
+        stack.push(penultimate - last);
+    },
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),
