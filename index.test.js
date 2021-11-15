@@ -97,7 +97,7 @@ describe("Befunge", () => {
             expect(interpreter("1 v\n@.<\n  @")).to.equal("1");
         });
 
-        it.skip("can change direction to bottom-to-top", () => {
+        it("can change direction to bottom-to-top", () => {
             expect(interpreter("#@1v\n .  \n@^2<\n @  ")).to.equal("2");
         });
 
