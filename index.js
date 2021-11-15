@@ -1,24 +1,31 @@
 function interpreter(code) {
+    const state = {
+        direction: Direction.RIGHT,
+        position: 0,
+        running: true,
+    };
     const stack = [];
-    let direction = Direction.RIGHT, output = "", position = 0;
+    let output = "";
 
-    while (true) {
-        const instruction = code[position];
-        if (instruction === "@") {
-            break;
-        } else if (instruction === "#") {
-            position += direction;
-        } else if (instruction === "<") {
-            direction = Direction.LEFT;
+    while (state.running) {
+        const instruction = code[state.position];
+        if (instruction in instructions) {
+            instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${stack.pop() || 0}`;
         } else if ("0123456789".indexOf(instruction) >= 0) {
             stack.push(parseInt(instruction, 10));
         }
-        position += direction;
+        state.position += state.direction;
     }
     return output;
 }
+
+const instructions = {
+    "@": (state) => state.running = false,
+    "#": (state) => state.position += state.direction,
+    "<": (state) => state.direction = Direction.LEFT,
+};
 
 const Direction = {
     LEFT: -1,
