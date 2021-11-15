@@ -11,13 +11,13 @@ const Direction = {
 const Mode = {
     NORMAL: 0,
     STRING: 1,
-    ENDED: 2,
+    COMPLETE: 2,
 };
 
 const instructions = {
     " ": () => {},
-    "@": (state) => state.mode = Mode.ENDED,
-    "#": ({ program }) => program.move(),
+    "@": (state) => state.mode = Mode.COMPLETE,
+    "#": ({ program }) => program.skip(),
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),
@@ -70,14 +70,13 @@ function interpreter(code) {
         stack: new Stack(),
     };
 
-    while (state.mode !== Mode.ENDED) {
-        const instruction = state.program.instruction;
+    while (state.mode !== Mode.COMPLETE) {
+        const instruction = state.program.nextInstruction();
         if (state.mode === Mode.STRING && instruction !== '"') {
             state.stack.push(instruction.charCodeAt(0));
         } else {
             instructions[instruction](state);
         }
-        state.program.move();
     }
 
     return state.output.join("");
@@ -90,7 +89,7 @@ class Program {
 
     constructor(program) {
         this._direction = Direction.RIGHT;
-        this._position = [0, 0];
+        this._position = [-1, 0];
         this._program = program;
     }
 
@@ -98,7 +97,8 @@ class Program {
         return this._program[y][x];
     }
 
-    get instruction() {
+    nextInstruction() {
+        this._move();
         const [x, y] = this._position;
         return this._program[y][x];
     }
@@ -111,18 +111,22 @@ class Program {
         this._direction = newDirection;
     }
 
-    move() {
+    skip() {
+        this._move();
+    }
+    
+    _clamp(value, length) {
+        if (value >= length) return value - length;
+        if (value < 0) return value + length;
+        return value;
+    }
+
+    _move() {
         let [x, y] = this._position;
         const [dx, dy] = this._direction;
         y = this._clamp(y + dy, this._program.length);
         x = this._clamp(x + dx, this._program[y].length)
         this._position = [x, y];
-    }
-
-    _clamp(value, length) {
-        if (value >= length) return value - length;
-        if (value < 0) return value + length;
-        return value;
     }
 }
 
