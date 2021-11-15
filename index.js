@@ -11,6 +11,8 @@ function interpreter(code) {
         const instruction = code[state.position];
         if (instruction in instructions) {
             instructions[instruction](state);
+        } else if (instruction === "$") {
+            stack.pop();
         } else if (instruction === ".") {
             output += `${stack.pop()}`;
         } else if (instruction === "_") {

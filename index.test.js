@@ -42,7 +42,7 @@ describe("Befunge", () => {
     });
 
     describe("Level 2 - stack manipulation", () => {
-        it.skip("can discard the value at the top of the stack", () => {
+        it("can discard the value at the top of the stack", () => {
             expect(interpreter("12$..@")).to.equal("10");
         });
 
