@@ -14,6 +14,8 @@ describe("Befunge", () => {
 
         it.skip("pops 0 from an empty stack", () => {
             expect(interpreter(".@")).to.equal("0");
+            expect(interpreter(" . . @")).to.equal("00");
+            expect(interpreter("@..")).to.equal("");
         });
 
         it.skip("pushes digits to the stack", () => {
