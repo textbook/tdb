@@ -15,7 +15,7 @@ function interpreter(code) {
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
         }
-        state.position = [state.position[0] + state.direction[0], state.position[1] + state.direction[1]];
+        state.position = newPosition(state.position, state.direction);
         if (state.position[0] < 0) {
             state.position[0] += program[0].length;
         } else if (state.position[0] >= program[0].length) {
@@ -27,7 +27,7 @@ function interpreter(code) {
 
 const instructions = {
     "@": (state) => state.running = false,
-    "#": (state) => state.position = [state.position[0] + state.direction[0], state.position[1] + state.direction[1]],
+    "#": (state) => state.position = newPosition(state.position, state.direction),
     "<": (state) => state.direction = Direction.LEFT,
     ">": (state) => state.direction = Direction.RIGHT,
     "v": (state) => state.direction = Direction.DOWN,
@@ -57,6 +57,10 @@ const instructions = {
     "8": pushInt(8),
     "9": pushInt(9),
 };
+
+function newPosition([x, y], [dx,dy]) {
+    return [x + dx, y + dy];
+}
 
 function pushInt(value) {
     return (state) => state.stack.push(value);
