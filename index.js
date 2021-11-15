@@ -3,22 +3,18 @@ function interpreter(code) {
         direction: Direction.RIGHT,
         position: 0,
         running: true,
+        stack: new Stack(),
     };
-    const stack = new Stack();
     let output = "";
 
     while (state.running) {
         const instruction = code[state.position];
         if (instruction in instructions) {
             instructions[instruction](state);
-        } else if (instruction === "$") {
-            stack.pop();
         } else if (instruction === ".") {
-            output += `${stack.pop()}`;
-        } else if (instruction === "_") {
-            state.direction = stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT;
+            output += `${state.stack.pop()}`;
         } else if ("0123456789".indexOf(instruction) >= 0) {
-            stack.push(parseInt(instruction, 10));
+            state.stack.push(parseInt(instruction, 10));
         }
         state.position += state.direction;
         if (state.position < 0) {
@@ -35,6 +31,8 @@ const instructions = {
     "#": (state) => state.position += state.direction,
     "<": (state) => state.direction = Direction.LEFT,
     ">": (state) => state.direction = Direction.RIGHT,
+    "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
+    "$": (state) => state.stack.pop(),
 };
 
 const Direction = {
