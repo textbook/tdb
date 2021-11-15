@@ -46,7 +46,7 @@ describe("Befunge", () => {
             expect(interpreter("12$..@")).to.equal("10");
         });
 
-        it.skip("can invert the value at the top of the stack", () => {
+        it("can invert the value at the top of the stack", () => {
             expect(interpreter("1!.@")).to.equal("0");
             expect(interpreter("!.@")).to.equal("1");
         });
