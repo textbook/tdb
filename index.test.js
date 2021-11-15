@@ -31,7 +31,7 @@ describe("Befunge", () => {
             expect(interpreter("#@_.1<")).to.equal("01");
         });
 
-        it.skip("can change direction to left-to-right", () => {
+        it("can change direction to left-to-right", () => {
             expect(interpreter("11>._@")).to.equal("100");
         });
 

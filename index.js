@@ -27,6 +27,7 @@ const instructions = {
     "@": (state) => state.running = false,
     "#": (state) => state.position += state.direction,
     "<": (state) => state.direction = Direction.LEFT,
+    ">": (state) => state.direction = Direction.RIGHT,
 };
 
 const Direction = {
