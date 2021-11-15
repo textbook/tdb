@@ -93,7 +93,7 @@ describe("Befunge", () => {
     });
 
     describe("Level 4 - vertical movement", () => {
-        it.skip("can change direction to top-to-bottom", () => {
+        it("can change direction to top-to-bottom", () => {
             expect(interpreter("1 v\n@.<\n  @")).to.equal("1");
         });
 

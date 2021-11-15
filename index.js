@@ -1,24 +1,25 @@
 function interpreter(code) {
     const state = {
         direction: Direction.RIGHT,
-        position: 0,
+        position: [0, 0],
         running: true,
         stack: new Stack(),
     };
     let output = "";
+    const program = code.split("\n");
 
     while (state.running) {
-        const instruction = code[state.position];
+        const instruction = program[state.position[1]][state.position[0]];
         if (instruction in instructions) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
         }
-        state.position += state.direction;
-        if (state.position < 0) {
-            state.position += code.length;
-        } else if (state.position >= code.length) {
-            state.position -= code.length;
+        state.position = [state.position[0] + state.direction[0], state.position[1] + state.direction[1]];
+        if (state.position[0] < 0) {
+            state.position[0] += program[0].length;
+        } else if (state.position[0] >= program[0].length) {
+            state.position[0] -= program[0].length;
         }
     }
     return output;
@@ -26,9 +27,10 @@ function interpreter(code) {
 
 const instructions = {
     "@": (state) => state.running = false,
-    "#": (state) => state.position += state.direction,
+    "#": (state) => state.position = [state.position[0] + state.direction[0], state.position[1] + state.direction[1]],
     "<": (state) => state.direction = Direction.LEFT,
     ">": (state) => state.direction = Direction.RIGHT,
+    "v": (state) => state.direction = Direction.DOWN,
     "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
     "$": ({ stack }) => stack.pop(),
     "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
@@ -65,8 +67,9 @@ function binaryOp(func) {
 }
 
 const Direction = {
-    LEFT: -1,
-    RIGHT: 1,
+    LEFT: [-1, 0],
+    RIGHT: [1, 0],
+    DOWN: [0, 1],
 };
 
 class Stack {
