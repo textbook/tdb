@@ -5,10 +5,6 @@ const { interpreter } = require(".");
 describe("Befunge", () => {
     describe("Level 1 - horizontal movement", () => {
         it("ends an empty program", () => {
-            expect(interpreter("@")).to.equal("");
-        });
-
-        it("ignores spaces", () => {
             expect(interpreter("   @")).to.equal("");
         });
 
@@ -31,6 +27,7 @@ describe("Befunge", () => {
         });
 
         it.skip("can conditionally change direction", () => {
+            expect(interpreter("1#@_")).to.equal("");
             expect(interpreter("#@_.1<")).to.equal("01");
         });
 
