@@ -35,7 +35,7 @@ describe("Befunge", () => {
             expect(interpreter("11>._@")).to.equal("100");
         });
 
-        it.skip("can wrap horizontally", () => {
+        it("can wrap horizontally", () => {
             expect(interpreter("1<@.")).to.equal("1");
             expect(interpreter("1_@>.#")).to.equal("1");
         });

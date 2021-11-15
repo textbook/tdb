@@ -19,6 +19,11 @@ function interpreter(code) {
             stack.push(parseInt(instruction, 10));
         }
         state.position += state.direction;
+        if (state.position < 0) {
+            state.position += code.length;
+        } else if (state.position >= code.length) {
+            state.position -= code.length;
+        }
     }
     return output;
 }
