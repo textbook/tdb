@@ -8,7 +8,7 @@ describe("Befunge", () => {
             expect(interpreter("@")).to.equal("");
         });
 
-        it.skip("ignores spaces", () => {
+        it("ignores spaces", () => {
             expect(interpreter("   @")).to.equal("");
         });
 
