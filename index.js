@@ -41,6 +41,7 @@ const instructions = {
     "+": binaryOp((last, penultimate) => penultimate + last),
     "*": binaryOp((last, penultimate) => penultimate * last),
     "-": binaryOp((last, penultimate) => penultimate - last),
+    "/": binaryOp((last, penultimate) => Math.trunc(penultimate / last)),
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),

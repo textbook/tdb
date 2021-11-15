@@ -74,7 +74,7 @@ describe("Befunge", () => {
             expect(interpreter("52-.@")).to.equal("3");
         });
 
-        it.skip("can perform division (integer, rounded towards 0)", () => {
+        it("can perform division (integer, rounded towards 0)", () => {
             expect(interpreter("42/.@")).to.equal("2");
             expect(interpreter("52/.@")).to.equal("2");
             expect(interpreter("27-2/.@")).to.equal("-2");
