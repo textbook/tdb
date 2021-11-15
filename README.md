@@ -2,6 +2,14 @@
 
 In this kata we're going to implement an interpreter for a simple programming language named [Befunge]. It's based on [this kata], but provides a more detailed test suite to allow you to test-drive your implementation.
 
+## Setup
+
+Clone this repository to your local machine and run `npm install` to install the dependencies.
+
+You will edit `index.js` with your implementation, and `index.test.js` to remove `.skip` from each test as you go along.
+
+You can run `npm test` (or `npm run test`, `npm t`) to run the tests in `index.test.js`. Once you've un-`.skip`ped all of the tests and they all pass, run `npm run validate`.
+
 ## Approach
 
 This kata is set up to use a test-driven development (TDD) approach. Each iteration of the process looks like:
