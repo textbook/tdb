@@ -13,6 +13,8 @@ function interpreter(code) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${stack.pop() || 0}`;
+        } else if (instruction === "_") {
+            state.direction = ((stack.pop() || 0) === 0) ? Direction.RIGHT : Direction.LEFT;
         } else if ("0123456789".indexOf(instruction) >= 0) {
             stack.push(parseInt(instruction, 10));
         }

@@ -26,7 +26,7 @@ describe("Befunge", () => {
             expect(interpreter("123.#@.#.<")).to.equal("321");
         });
 
-        it.skip("can conditionally change direction", () => {
+        it("can conditionally change direction", () => {
             expect(interpreter("1#@_")).to.equal("");
             expect(interpreter("#@_.1<")).to.equal("01");
         });
