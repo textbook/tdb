@@ -80,7 +80,7 @@ describe("Befunge", () => {
             expect(interpreter("27-2/.@")).to.equal("-2");
         });
 
-        it.skip("can perform modulo", () => {
+        it("can perform modulo", () => {
             expect(interpreter("42%.@")).to.equal("0");
             expect(interpreter("52%.@")).to.equal("1");
         });
