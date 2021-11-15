@@ -56,7 +56,7 @@ describe("Befunge", () => {
             expect(interpreter(":..@")).to.equal("00");
         });
 
-        it.skip("can swap the values at the top of the stack", () => {
+        it("can swap the values at the top of the stack", () => {
             expect(interpreter("12\\..@")).to.equal("12");
         });
     });

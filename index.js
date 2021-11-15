@@ -33,6 +33,11 @@ const instructions = {
     "$": (state) => state.stack.pop(),
     "!": (state) => state.stack.push(state.stack.pop() === 0 ? 1 : 0),
     ":": (state) => state.stack.push(state.stack.peek()),
+    "\\": (state) => {
+        const last = state.stack.pop(), penultimate = state.stack.pop();
+        state.stack.push(last);
+        state.stack.push(penultimate);
+    },
     "0": pushInt(0),
     "1": pushInt(1),
     "2": pushInt(2),
