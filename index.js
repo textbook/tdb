@@ -1,25 +1,19 @@
 function interpreter(code) {
     const state = {
-        direction: Direction.RIGHT,
         output: "",
-        position: [0, 0],
-        program: code.split("\n").map((row) => row.split("")),
+        program: Program.fromString(code),
         running: true,
         stack: new Stack(),
         stringMode: false,
     };
 
     while (state.running) {
-        let [x, y] = state.position;
-        const instruction = state.program[y][x];
+        const instruction = state.program.next();
         if (state.stringMode && instruction !== '"') {
             state.stack.push(instruction.charCodeAt(0));
         } else if (instruction in instructions) {
             instructions[instruction](state);
         }
-        [x, y] = newPosition(state.position, state.direction);
-        y = wrap(y, state.program.length);
-        state.position = [wrap(x, state.program[y].length), y];
     }
     return state.output;
 }
@@ -27,18 +21,18 @@ function interpreter(code) {
 const instructions = {
     "g": (state) => {
         const y = state.stack.pop(), x = state.stack.pop();
-        state.stack.push(state.program[y][x].charCodeAt(0));
+        state.stack.push(state.program.getChar([x, y]).charCodeAt(0));
 
     },
     "p": (state) => {
         const y = state.stack.pop(), x = state.stack.pop(), v = state.stack.pop();
-        state.program[y][x] = String.fromCharCode(v);
+        state.program.setChar([x, y], String.fromCharCode(v));
     },
     ".": (state) => state.output += `${state.stack.pop()}`,
     ",": (state) => state.output += String.fromCharCode(state.stack.pop()),
     '"': (state) => state.stringMode = !state.stringMode,
     "@": (state) => state.running = false,
-    "#": (state) => state.position = newPosition(state.position, state.direction),
+    "#": (state) => state.program.skip(),
     "<": setDirection(() => Direction.LEFT),
     ">": setDirection(() => Direction.RIGHT),
     "v": setDirection(() => Direction.DOWN),
@@ -73,12 +67,9 @@ const instructions = {
 };
 
 function setDirection(directionFactory) {
-    return (state) => state.direction = directionFactory(state);
+    return (state) => state.program.setDirection(directionFactory(state));
 }
 
-function newPosition([x, y], [dx,dy]) {
-    return [x + dx, y + dy];
-}
 
 function pushInt(value) {
     return (state) => state.stack.push(value);
@@ -86,16 +77,6 @@ function pushInt(value) {
 
 function binaryOp(func) {
     return ({ stack }) => stack.push(func(stack.pop(), stack.pop()));
-}
-
-function wrap(value, limit) {
-    if (value < 0) {
-        return value + limit;
-    } else if (value >= limit) {
-        return value - limit;
-    } else {
-        return value;
-    }
 }
 
 const Direction = {
@@ -107,6 +88,57 @@ const Direction = {
         return [this.LEFT, this.RIGHT, this.DOWN, this.UP][Math.floor(4 * Math.random())];
     }
 };
+
+class Program {
+    static fromString(code) {
+        return new Program(code.split("\n").map((row) => row.split("")));
+    }
+
+    constructor(program) {
+        this._program = program;
+        this._direction = Direction.RIGHT;
+        this._position = [-1, 0];
+    }
+
+    getChar([x, y]) {
+        return this._program[y][x];
+    }
+
+    next() {
+        this._move();
+        const [x, y] = this._position;
+        return this._program[y][x];
+    }
+
+    setChar([x, y], v) {
+        this._program[y][x] = v;
+    }
+
+    setDirection(direction) {
+        this._direction = direction;
+    }
+
+    skip() {
+        this._move();
+    }
+
+    _move() {
+        let [x, y] = this._position;
+        let [dx, dy] = this._direction;
+        y = this._wrap(y + dy, this._program.length);
+        this._position = [this._wrap(x + dx, this._program[y].length), y];
+    }
+
+    _wrap(value, limit) {
+        if (value < 0) {
+            return value + limit;
+        } else if (value >= limit) {
+            return value - limit;
+        } else {
+            return value;
+        }
+    }
+}
 
 class Stack {
     constructor() {
