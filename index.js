@@ -26,12 +26,12 @@ function interpreter(code) {
 const instructions = {
     "@": (state) => state.running = false,
     "#": (state) => state.position = newPosition(state.position, state.direction),
-    "<": (state) => state.direction = Direction.LEFT,
-    ">": (state) => state.direction = Direction.RIGHT,
-    "v": (state) => state.direction = Direction.DOWN,
-    "^": (state) => state.direction = Direction.UP,
-    "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
-    "|": (state) => state.direction = state.stack.pop() === 0 ? Direction.DOWN : Direction.UP,
+    "<": setDirection(() => Direction.LEFT),
+    ">": setDirection(() => Direction.RIGHT),
+    "v": setDirection(() => Direction.DOWN),
+    "^": setDirection(() => Direction.UP),
+    "_": setDirection(({ stack }) => stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT),
+    "|": setDirection(({ stack }) => stack.pop() === 0 ? Direction.DOWN : Direction.UP),
     "$": ({ stack }) => stack.pop(),
     "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
     ":": ({ stack }) => stack.push(stack.peek()),
@@ -57,6 +57,10 @@ const instructions = {
     "8": pushInt(8),
     "9": pushInt(9),
 };
+
+function setDirection(directionFactory) {
+    return (state) => state.direction = directionFactory(state);
+}
 
 function newPosition([x, y], [dx,dy]) {
     return [x + dx, y + dy];
