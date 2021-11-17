@@ -125,7 +125,7 @@ describe("Befunge", () => {
     });
 
     describe("Level 5 - string mode", () => {
-        it.skip("can store characters as ASCII codes", () => {
+        it("can store characters as ASCII codes", () => {
             expect(interpreter('"@".@')).to.equal("64");
         });
 

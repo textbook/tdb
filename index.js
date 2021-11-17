@@ -4,6 +4,7 @@ function interpreter(code) {
         position: [0, 0],
         running: true,
         stack: new Stack(),
+        stringMode: false,
     };
     let output = "";
     const program = code.split("\n");
@@ -11,7 +12,9 @@ function interpreter(code) {
     while (state.running) {
         let [x, y] = state.position;
         const instruction = program[y][x];
-        if (instruction in instructions) {
+        if (state.stringMode && instruction !== '"') {
+            state.stack.push(instruction.charCodeAt(0));
+        } else if (instruction in instructions) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
@@ -24,6 +27,7 @@ function interpreter(code) {
 }
 
 const instructions = {
+    '"': (state) => state.stringMode = !state.stringMode,
     "@": (state) => state.running = false,
     "#": (state) => state.position = newPosition(state.position, state.direction),
     "<": setDirection(() => Direction.LEFT),
