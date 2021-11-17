@@ -17,17 +17,8 @@ function interpreter(code) {
             output += `${state.stack.pop()}`;
         }
         [x, y] = newPosition(state.position, state.direction);
-        if (y < 0) {
-            y += program.length;
-        } else if (y >= program.length) {
-            y -= program.length;
-        }
-        if (x < 0) {
-            x += program[y].length;
-        } else if (x >= program[y].length) {
-            x -= program[y].length;
-        }
-        state.position = [x, y];
+        y = wrap(y, program.length);
+        state.position = [wrap(x, program[y].length), y];
     }
     return output;
 }
@@ -76,6 +67,16 @@ function pushInt(value) {
 
 function binaryOp(func) {
     return ({ stack }) => stack.push(func(stack.pop(), stack.pop()));
+}
+
+function wrap(value, limit) {
+    if (value < 0) {
+        return value + limit;
+    } else if (value >= limit) {
+        return value - limit;
+    } else {
+        return value;
+    }
 }
 
 const Direction = {
