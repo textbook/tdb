@@ -31,6 +31,7 @@ const instructions = {
     "v": (state) => state.direction = Direction.DOWN,
     "^": (state) => state.direction = Direction.UP,
     "_": (state) => state.direction = state.stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT,
+    "|": (state) => state.direction = state.stack.pop() === 0 ? Direction.DOWN : Direction.UP,
     "$": ({ stack }) => stack.pop(),
     "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
     ":": ({ stack }) => stack.push(stack.peek()),

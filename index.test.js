@@ -106,7 +106,7 @@ describe("Befunge", () => {
             expect(interpreter("v@.\n5 @\n> v")).to.equal("5");
         });
 
-        it.skip("can conditionally move vertically", () => {
+        it("can conditionally move vertically", () => {
             expect(interpreter("74 |\n   @\n   #\n   .")).to.equal("7");
         });
 
