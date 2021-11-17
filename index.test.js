@@ -101,7 +101,7 @@ describe("Befunge", () => {
             expect(interpreter("#@1v\n .  \n@^2<\n @  ")).to.equal("2");
         });
 
-        it.skip("can wrap vertically", () => {
+        it("can wrap vertically", () => {
             expect(interpreter("98^\n  @\n  .")).to.equal("8")
             expect(interpreter("v@.\n5 @\n> v")).to.equal("5");
         });

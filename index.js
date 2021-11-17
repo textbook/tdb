@@ -9,18 +9,25 @@ function interpreter(code) {
     const program = code.split("\n");
 
     while (state.running) {
-        const instruction = program[state.position[1]][state.position[0]];
+        let [x, y] = state.position;
+        const instruction = program[y][x];
         if (instruction in instructions) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
         }
-        state.position = newPosition(state.position, state.direction);
-        if (state.position[0] < 0) {
-            state.position[0] += program[0].length;
-        } else if (state.position[0] >= program[0].length) {
-            state.position[0] -= program[0].length;
+        [x, y] = newPosition(state.position, state.direction);
+        if (y < 0) {
+            y += program.length;
+        } else if (y >= program.length) {
+            y -= program.length;
         }
+        if (x < 0) {
+            x += program[y].length;
+        } else if (x >= program[y].length) {
+            x -= program[y].length;
+        }
+        state.position = [x, y];
     }
     return output;
 }
