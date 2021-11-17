@@ -110,7 +110,7 @@ describe("Befunge", () => {
             expect(interpreter("74 |\n   @\n   #\n   .")).to.equal("7");
         });
 
-        it.skip("can move randomly", function () {
+        it("can move randomly", function () {
             this.timeout(100);
             const code = "#@ #. #1?2.@\n        0   \n        .   \n        @   \n        .   \n        3   ";
             const directions = { 0: "down", 1: "left", 2: "right", 3: "up" };

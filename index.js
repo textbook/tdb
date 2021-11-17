@@ -32,6 +32,7 @@ const instructions = {
     "^": setDirection(() => Direction.UP),
     "_": setDirection(({ stack }) => stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT),
     "|": setDirection(({ stack }) => stack.pop() === 0 ? Direction.DOWN : Direction.UP),
+    "?": setDirection(() => [Direction.LEFT, Direction.RIGHT, Direction.DOWN, Direction.UP][Math.floor(4 * Math.random())]),
     "$": ({ stack }) => stack.pop(),
     "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
     ":": ({ stack }) => stack.push(stack.peek()),
