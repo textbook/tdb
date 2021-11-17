@@ -30,9 +30,9 @@ const instructions = {
     ">": setDirection(() => Direction.RIGHT),
     "v": setDirection(() => Direction.DOWN),
     "^": setDirection(() => Direction.UP),
+    "?": setDirection(() => Direction.random()),
     "_": setDirection(({ stack }) => stack.pop() === 0 ? Direction.RIGHT : Direction.LEFT),
     "|": setDirection(({ stack }) => stack.pop() === 0 ? Direction.DOWN : Direction.UP),
-    "?": setDirection(() => [Direction.LEFT, Direction.RIGHT, Direction.DOWN, Direction.UP][Math.floor(4 * Math.random())]),
     "$": ({ stack }) => stack.pop(),
     "!": ({ stack }) => stack.push(stack.pop() === 0 ? 1 : 0),
     ":": ({ stack }) => stack.push(stack.peek()),
@@ -90,6 +90,9 @@ const Direction = {
     RIGHT: [1, 0],
     DOWN: [0, 1],
     UP: [0, -1],
+    random() {
+        return [this.LEFT, this.RIGHT, this.DOWN, this.UP][Math.floor(4 * Math.random())];
+    }
 };
 
 class Stack {
