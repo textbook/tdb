@@ -18,6 +18,8 @@ function interpreter(code) {
             instructions[instruction](state);
         } else if (instruction === ".") {
             output += `${state.stack.pop()}`;
+        } else if (instruction === ",") {
+            output += String.fromCharCode(state.stack.pop());
         }
         [x, y] = newPosition(state.position, state.direction);
         y = wrap(y, program.length);

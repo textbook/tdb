@@ -129,7 +129,7 @@ describe("Befunge", () => {
             expect(interpreter('"@".@')).to.equal("64");
         });
 
-        it.skip("can output ASCII codes as characters", () => {
+        it("can output ASCII codes as characters", () => {
             expect(interpreter('"oof">:#,_@')).to.equal("foo");
             expect(interpreter("88*,@")).to.equal("@");
         });
