@@ -1,16 +1,19 @@
 function interpreter(code) {
+    let stringMode = false;
     const state = {
         output: "",
         program: Program.fromString(code),
-        running: true,
         stack: new Stack(),
-        stringMode: false,
     };
 
-    while (state.running) {
+    while (true) {
         const instruction = state.program.next();
-        if (state.stringMode && instruction !== '"') {
+        if (instruction === '"') {
+            stringMode = !stringMode;
+        } else if (stringMode) {
             state.stack.push(instruction.charCodeAt(0));
+        } else if (instruction === "@") {
+            break;
         } else if (instruction in instructions) {
             instructions[instruction](state);
         }
@@ -30,8 +33,6 @@ const instructions = {
     },
     ".": (state) => state.output += `${state.stack.pop()}`,
     ",": (state) => state.output += String.fromCharCode(state.stack.pop()),
-    '"': (state) => state.stringMode = !state.stringMode,
-    "@": (state) => state.running = false,
     "#": (state) => state.program.skip(),
     "<": setDirection(() => Direction.LEFT),
     ">": setDirection(() => Direction.RIGHT),
