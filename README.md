@@ -36,7 +36,7 @@ In this case we're not going to worry about the maximum size of the stack. The s
 
 ## Code
 
-Befunge code is a series of characters on a 2D grid. This is represented in our tests as a string, e.g. the `"74 |\n   @\n   #\n   ."` represents the code:
+A Befunge program is a series of characters on a 2D grid. This is represented in our tests as a string, e.g. `"74 |\n   @\n   #\n   ."` represents the program:
 
 | ↓ y \ x → | 0 | 1 | 2 | 3 |
 |---|---|---|---|---|
@@ -65,18 +65,22 @@ The full instruction set is listed below, but to run through one of the examples
            #
            .
     ```
+
     Direction: `→`, stack: `[ ]`, output: `""`
 
  1. Push `7` to stack then move right:
+
     ```
      7[4]  |
            @
            #
            .
     ```
+
     Direction: `→`, stack: `[ 7 ]`, output: `""`
 
  2. Push `4` to stack then move right
+
     ```
      7 4[ ]|
            @
@@ -86,48 +90,58 @@ The full instruction set is listed below, but to run through one of the examples
     Direction: `→`, stack: `[ 7 4 ]`, output: `""`
 
  3. Do nothing then move right
+
     ```
      7 4  [|]
            @
            #
            .
     ```
+
     Direction: `→`, stack: `[ 7 4 ]`, output: `""`
 
- 4.  Pop `4` from stack, change direction to up then move up (wrapping around)
+ 4. Pop `4` from stack, change direction to up then move up (wrapping around)
+
     ```
      7 4   |
            @
            #
           [.]
     ```
+
     Direction: `↑`, stack: `[ 7 ]`, output: `""`
 
  5. Pop `7` from stack, send to output then move up
+
     ```
      7 4   |
            @
           [#]
            .
     ```
+
     Direction: `↑`, stack: `[ ]`, output: `"7"`
 
  6. Skip one cell in the current direction then move up
+
     ```
      7 4  [|]
            @
            #
            .
     ```
+
     Direction: `↑`, stack: `[ ]`, output: `"7"`
     
  7. Pop `0` from stack, change direction to down then move down
+
     ```
      7 4   |
           [@]
            #
            .
     ```
+
     Direction: `↓`, stack: `[ ]`, output: `"7"`
     
  8. End program and return output -> `"7"`
