@@ -136,7 +136,7 @@ describe("Befunge", () => {
     });
 
     describe("Level 6 - store and retrieve", () => {
-        it.skip("can output a character from the program itself", () => {
+        it("can output a character from the program itself", () => {
             expect(interpreter("g.@")).to.equal("103");
             expect(interpreter("40g.@")).to.equal("64");
         });
