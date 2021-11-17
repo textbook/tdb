@@ -141,7 +141,7 @@ describe("Befunge", () => {
             expect(interpreter("40g.@")).to.equal("64");
         });
 
-        it.skip("can update a character in the program itself", () => {
+        it("can update a character in the program itself", () => {
             expect(interpreter('"!,"70p @')).to.equal("!");
         });
     });

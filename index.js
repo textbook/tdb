@@ -30,6 +30,10 @@ const instructions = {
         state.stack.push(state.program[y][x].charCodeAt(0));
 
     },
+    "p": (state) => {
+        const y = state.stack.pop(), x = state.stack.pop(), v = state.stack.pop();
+        state.program[y][x] = String.fromCharCode(v);
+    },
     ".": (state) => state.output += `${state.stack.pop()}`,
     ",": (state) => state.output += String.fromCharCode(state.stack.pop()),
     '"': (state) => state.stringMode = !state.stringMode,
